@@ -7,6 +7,12 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { CaseStudies } from './collections/CaseStudies'
+import { Clients } from './collections/Clients'
+import { Insights } from './collections/Insights'
+import { Pages } from './collections/Pages'
+import { Services } from './collections/Services'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,8 +23,32 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    // @ts-expect-error – admin.css is supported at runtime in Payload 3.x but missing from types
+    css: path.resolve(dirname, 'styles/admin.css'),
+    components: {
+      graphics: {
+        Logo: '/components/admin/AdminLogo',
+        Icon: '/components/admin/AdminIcon',
+      },
+      beforeDashboard: ['/components/admin/BeforeDashboard'],
+    },
+    meta: {
+      titleSuffix: '— Healthark CMS',
+    },
+    theme: 'light',
   },
-  collections: [Users, Media],
+  collections: [
+    Users,
+    Media,
+    // Content
+    CaseStudies,
+    Insights,
+    Services,
+    Clients,
+    // CMS pages
+    Pages,
+  ],
+  globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

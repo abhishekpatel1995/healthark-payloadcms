@@ -1,164 +1,249 @@
-:root {
-  --font-mono: 'Roboto Mono', monospace;
+@import "tailwindcss";
+
+@theme {
+  /* Brand colors — estimated from Healthark's blue/teal logo.
+     Confirm exact hex codes and update here if needed. */
+  --color-primary:       #1B5FAD;
+  --color-primary-dark:  #144A8A;
+  --color-accent:        #00A896;
+  --color-accent-dark:   #007D72;
+
+  /* Dark surfaces */
+  --color-footer:        #0C1B2D;
+  --color-footer-light:  #142538;
+
+  /* Neutral surfaces */
+  --color-surface:       #F8F9FA;
+  --color-surface-2:     #F1F3F5;
+  --color-border:        #E2E8F0;
+
+  /* Text */
+  --color-muted:         #64748B;
+  --color-body:          #334155;
+  --color-heading:       #0F172A;
+
+  /* Typography — var(--font-inter) is injected by next/font/google on <html> */
+  --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
+/* ── Scroll-reveal animations ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition-property: opacity, transform;
+    transition-duration: 650ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-html {
-  font-size: 18px;
-  line-height: 32px;
-
-  background: rgb(0, 0, 0);
-  -webkit-font-smoothing: antialiased;
-}
-
-html,
-body,
-#app {
-  height: 100%;
-}
-
-body {
-  font-family: system-ui;
-  font-size: 18px;
-  line-height: 32px;
-
-  margin: 0;
-  color: rgb(1000, 1000, 1000);
-
-  @media (max-width: 1024px) {
-    font-size: 15px;
-    line-height: 24px;
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+/* ── Brand gradient text ───────────────────────────────────────────────────── */
+.text-gradient-brand {
+  background: linear-gradient(90deg, #1B5FAD 0%, #00A896 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-h1 {
-  margin: 40px 0;
-  font-size: 64px;
-  line-height: 70px;
-  font-weight: bold;
-
-  @media (max-width: 1024px) {
-    margin: 24px 0;
-    font-size: 42px;
-    line-height: 42px;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 38px;
-    line-height: 38px;
-  }
-
-  @media (max-width: 400px) {
-    font-size: 32px;
-    line-height: 32px;
-  }
+/* ── Scroll progress bar ───────────────────────────────────────────────────── */
+#scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  z-index: 9999;
+  pointer-events: none;
+  background: linear-gradient(90deg, #1B5FAD 0%, #00A896 50%, #1B5FAD 100%);
+  background-size: 200% 100%;
+  will-change: width;
 }
 
-p {
-  margin: 24px 0;
-
-  @media (max-width: 1024px) {
-    margin: calc(var(--base) * 0.75) 0;
+@media (prefers-reduced-motion: no-preference) {
+  #scroll-progress-bar { animation: bar-shimmer 3s linear infinite; }
+  @keyframes bar-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 }
 
-a {
-  color: currentColor;
-
-  &:focus {
-    opacity: 0.8;
-    outline: none;
+/* ── Button shimmer sweep ──────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
   }
-
-  &:active {
-    opacity: 0.7;
-    outline: none;
+  .btn-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.22) 50%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+  }
+  .btn-shimmer:hover::after {
+    transform: translateX(160%);
+    transition: transform 0.55s ease;
   }
 }
 
-svg {
-  vertical-align: middle;
+/* ── Animated gradient text ────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .text-gradient-animated {
+    background: linear-gradient(90deg, #1B5FAD, #00A896, #1B5FAD);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-pan 4s linear infinite;
+  }
+  @keyframes gradient-pan {
+    from { background-position: 0% center; }
+    to   { background-position: 200% center; }
+  }
 }
 
-.home {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100vh;
-  padding: 45px;
-  max-width: 1024px;
-  margin: 0 auto;
-  overflow: hidden;
+/* ── Timeline dot pulse ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .dot-pulse { animation: dot-pulse 2s ease-in-out infinite; }
+  @keyframes dot-pulse {
+    0%, 100% { box-shadow: 0 0 0 0   rgba(0, 168, 150, 0.55); }
+    50%       { box-shadow: 0 0 0 8px rgba(0, 168, 150, 0);    }
+  }
+}
 
-  @media (max-width: 400px) {
-    padding: 24px;
+/* ── Underline slide (nav links, card read-more) ───────────────────────────── */
+.underline-slide {
+  position: relative;
+}
+.underline-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1B5FAD, #00A896);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+.underline-slide:hover::after { width: 100%; }
+
+/* ── Card ring glow on hover ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .card-glow {
+    transition-property: transform, box-shadow, border-color;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+  }
+  .card-glow:hover {
+    box-shadow:
+      0 0 0 2px rgba(0, 168, 150, 0.35),
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* ── CTA section gradient animation ────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .bg-gradient-animated {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  @keyframes gradient-shift {
+    0%   { background-position: 0%   50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0%   50%; }
+  }
+}
+
+/* ── Decorative animation keyframes ───────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
   }
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-
-    h1 {
-      text-align: center;
-    }
+  @keyframes float-b {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(8px); }
   }
 
-  .links {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    a {
-      text-decoration: none;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .admin {
-      color: rgb(0, 0, 0);
-      background: rgb(1000, 1000, 1000);
-      border: 1px solid rgb(0, 0, 0);
-    }
-
-    .docs {
-      color: rgb(1000, 1000, 1000);
-      background: rgb(0, 0, 0);
-      border: 1px solid rgb(1000, 1000, 1000);
-    }
+  @keyframes float-c {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    33%       { transform: translateY(-7px) translateX(4px); }
+    66%       { transform: translateY(5px) translateX(-3px); }
   }
 
-  .footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%       { opacity: 1;    transform: scale(1.1); }
+  }
 
-    @media (max-width: 1024px) {
-      flex-direction: column;
-      gap: 6px;
-    }
+  @keyframes orbit-ring {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
 
-    p {
-      margin: 0;
-    }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
 
-    .codeLink {
-      text-decoration: none;
-      padding: 0 0.5rem;
-      background: rgb(60, 60, 60);
-      border-radius: 4px;
-    }
+  .animate-float      { animation: float          4.5s ease-in-out infinite; }
+  .animate-float-b    { animation: float-b        5.5s ease-in-out infinite; }
+  .animate-float-c    { animation: float-c        6.5s ease-in-out infinite; }
+  .animate-pulse-glow { animation: pulse-glow     3.5s ease-in-out infinite; }
+  .animate-orbit-ring { animation: orbit-ring      20s linear       infinite; }
+  .animate-marquee    { animation: marquee-scroll  32s linear       infinite; }
+
+}
+
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-body);
+    line-height: 1.6;
+    margin: 0;
+    background: #fff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-heading);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  p { margin: 0; }
+
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }

@@ -69,6 +69,11 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'case-studies': CaseStudy;
+    insights: Insight;
+    services: Service;
+    clients: Client;
+    pages: Page;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +83,11 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
+    insights: InsightsSelect<false> | InsightsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    clients: ClientsSelect<false> | ClientsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +97,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-settings': SiteSetting;
+  };
+  globalsSelect: {
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -162,6 +176,1090 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Client case studies displayed on the homepage and Insights section.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies".
+ */
+export interface CaseStudy {
+  id: string;
+  title: string;
+  /**
+   * URL-friendly identifier, e.g. "rwe-clinical-insights-2026"
+   */
+  slug: string;
+  /**
+   * Short label shown on the card thumbnail, e.g. "Real World Data".
+   */
+  tag?: string | null;
+  /**
+   * One or two sentences shown on listing cards.
+   */
+  excerpt?: string | null;
+  publishedDate?: string | null;
+  /**
+   * Thumbnail shown on the case study card and at the top of the detail page. Recommended: 800×450 px.
+   */
+  featuredImage?: (string | null) | Media;
+  clientBackground?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  challenge?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  healtharksRole?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  impact?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Blogs, articles, reports, podcasts, events, and all other content types.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "insights".
+ */
+export interface Insight {
+  id: string;
+  title: string;
+  /**
+   * URL-friendly identifier, e.g. "obesity-market-report-2025"
+   */
+  slug: string;
+  type:
+    | 'blog'
+    | 'article'
+    | 'report'
+    | 'podcast'
+    | 'event'
+    | 'infographic'
+    | 'framework'
+    | 'press-release'
+    | 'coffee-table-book'
+    | 'knowledge-series'
+    | 'analytics-demo';
+  publishedDate: string;
+  /**
+   * Show in featured cards on the homepage.
+   */
+  featured?: boolean | null;
+  /**
+   * Thumbnail shown on cards and at the top of the detail page.
+   */
+  featuredImage?: (string | null) | Media;
+  /**
+   * Short description shown on listing cards (2–3 sentences).
+   */
+  excerpt?: string | null;
+  /**
+   * Author name for articles/blogs; host name for podcasts.
+   */
+  author?: string | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * For podcasts on YouTube/Spotify or reports hosted externally.
+   */
+  externalUrl?: string | null;
+  /**
+   * Full article, blog, or transcript body.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Capabilities, business units, and solutions shown across the site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: string;
+  title: string;
+  /**
+   * URL-friendly identifier, e.g. "real-world-evidence"
+   */
+  slug: string;
+  category: 'capability' | 'business-unit' | 'solution';
+  /**
+   * Lower numbers appear first in listings.
+   */
+  order?: number | null;
+  /**
+   * Used on service detail pages and cards.
+   */
+  featuredImage?: (string | null) | Media;
+  /**
+   * One or two sentences shown on listing cards.
+   */
+  excerpt: string;
+  /**
+   * Used on the individual service detail page.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Heroicons name used in the services grid, e.g. "chart-bar".
+   */
+  icon?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Client logos and info shown on the Clients page and homepage strip.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients".
+ */
+export interface Client {
+  id: string;
+  name: string;
+  /**
+   * Upload an SVG or PNG with transparent background. Recommended: 320×120 px.
+   */
+  logo: string | Media;
+  industry?:
+    | (
+        | 'pharma'
+        | 'biotech'
+        | 'medical-devices'
+        | 'health-tech'
+        | 'healthcare-services'
+        | 'insurance-payer'
+        | 'government'
+        | 'other'
+      )
+    | null;
+  /**
+   * Include this client in the homepage logo strip.
+   */
+  featured?: boolean | null;
+  /**
+   * Lower numbers appear first in the logo strip.
+   */
+  order?: number | null;
+  /**
+   * Optional — used on the full Clients page.
+   */
+  website?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Flexible pages assembled from reusable content blocks.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  title: string;
+  /**
+   * e.g. "about-us" or "capabilities/digital-health"
+   */
+  slug: string;
+  seo?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+    /**
+     * Recommended: 1200×630 px.
+     */
+    ogImage?: (string | null) | Media;
+  };
+  layout?:
+    | (
+        | {
+            heading: string;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subtext?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            subtextAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            /**
+             * Displayed on the right side of the hero. Recommended: 920×680 px.
+             */
+            heroImage?: (string | null) | Media;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            imageAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            ctaPrimary?: {
+              label?: string | null;
+              url?: string | null;
+            };
+            ctaSecondary?: {
+              label?: string | null;
+              url?: string | null;
+            };
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            ctaAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            variant?: ('dark' | 'primary' | 'light') | null;
+            /**
+             * Small label above the heading, e.g. "Healthcare & Life Sciences Consulting".
+             */
+            eyebrowLabel?: string | null;
+            /**
+             * Words that cycle after the heading with a typewriter effect. E.g. "grow faster", "transform digitally".
+             */
+            rotatingWords?:
+              | {
+                  word: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'hero';
+          }
+        | {
+            richText: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            contentAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            width?: ('default' | 'full' | 'narrow') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'content';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            stats?:
+              | {
+                  /**
+                   * e.g. "250+" or "2016"
+                   */
+                  value: string;
+                  /**
+                   * e.g. "Projects Completed"
+                   */
+                  label: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            statsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            variant?: ('primary' | 'dark' | 'accent' | 'surface') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'stats';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            cardsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            /**
+             * Which services to pull from the Services collection.
+             */
+            filter?: ('all' | 'capability' | 'business-unit' | 'solution') | null;
+            limit?: number | null;
+            showCTA?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'servicesGrid';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            cardsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            selectionMode?: ('latest' | 'manual') | null;
+            /**
+             * Pick specific case studies when Selection Mode is set to "Manually pick".
+             */
+            items?: (string | CaseStudy)[] | null;
+            limit?: number | null;
+            showCTA?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'caseStudies';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            cardsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            typeFilter?: ('all' | 'blog' | 'article' | 'report' | 'podcast' | 'event' | 'press-release') | null;
+            limit?: number | null;
+            showCTA?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'insights';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            selectionMode?: ('featured' | 'all' | 'manual') | null;
+            items?: (string | Client)[] | null;
+            showCTA?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'clients';
+          }
+        | {
+            heading: string;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subtext?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            subtextAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            ctaPrimary?: {
+              label?: string | null;
+              url?: string | null;
+            };
+            ctaSecondary?: {
+              label?: string | null;
+              url?: string | null;
+            };
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            ctaAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            variant?: ('accent' | 'primary' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ctaBanner';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            richText?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            bodyAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            cta?: {
+              label?: string | null;
+              url?: string | null;
+            };
+            /**
+             * Recommended: 800×600 px.
+             */
+            image?: (string | null) | Media;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            imageAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            imagePosition?: ('right' | 'left') | null;
+            background?: ('white' | 'surface') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoColumn';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            membersAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            members?:
+              | {
+                  name: string;
+                  title: string;
+                  bio?: string | null;
+                  /**
+                   * Headshot. Recommended: 400×400 px, square.
+                   */
+                  photo?: (string | null) | Media;
+                  linkedin?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'teamGrid';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            itemsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            items?:
+              | {
+                  question: string;
+                  answer: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordion';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            itemsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            items?:
+              | {
+                  /**
+                   * e.g. "2024" or "Q1 2024"
+                   */
+                  year: string;
+                  title: string;
+                  description?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('surface' | 'white' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timeline';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            cardsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            items?:
+              | {
+                  quote: string;
+                  authorName: string;
+                  authorTitle?: string | null;
+                  authorCompany?: string | null;
+                  /**
+                   * Square headshot. Recommended: 100×100 px.
+                   */
+                  photo?: (string | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            variant?: ('surface' | 'white' | 'dark' | 'primary') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonials';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Paste a YouTube or Vimeo URL, e.g. https://youtu.be/dQw4w9WgXcQ
+             */
+            videoUrl: string;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            videoAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            /**
+             * Shown before the video plays. Omit to use the platform default thumbnail.
+             */
+            posterImage?: (string | null) | Media;
+            caption?: string | null;
+            variant?: ('white' | 'surface' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'video';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            submitLabel?: string | null;
+            successMessage?: string | null;
+            variant?: ('surface' | 'white') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'contactForm';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            items?:
+              | {
+                  title: string;
+                  description: string;
+                  /**
+                   * e.g. an emoji "📊" or step number "01".
+                   */
+                  icon?: string | null;
+                  /**
+                   * Shown in the pinned panel when this step is active. Recommended: 800×600 px.
+                   */
+                  image?: (string | null) | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Shown when no step-specific image is active. Recommended: 800×600 px.
+             */
+            stickyImage?: (string | null) | Media;
+            imagePosition?: ('right' | 'left') | null;
+            variant?: ('white' | 'surface' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'featureScroll';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            layout?: ('bars' | 'rings') | null;
+            variant?: ('white' | 'surface' | 'dark' | 'primary') | null;
+            items?:
+              | {
+                  /**
+                   * e.g. "Client Retention"
+                   */
+                  label: string;
+                  /**
+                   * Numeric value only. The % sign is added automatically.
+                   */
+                  percentage: number;
+                  description?: string | null;
+                  color?: ('accent' | 'primary' | 'white') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'metricsBar';
+          }
+        | {
+            /**
+             * Small label above the ticker strip, e.g. "Trusted by 500+ professionals"
+             */
+            eyebrow?: string | null;
+            heading?: string | null;
+            rows?: ('one' | 'two') | null;
+            /**
+             * Pixels per second. Recommended: 30 (slow) · 50 (normal) · 90 (fast)
+             */
+            speed?: number | null;
+            direction?: ('left' | 'right') | null;
+            pauseOnHover?: boolean | null;
+            /**
+             * Character between items — e.g. "•" "★" "|"
+             */
+            separator?: string | null;
+            variant?: ('white' | 'surface' | 'dark' | 'primary') | null;
+            items?:
+              | {
+                  /**
+                   * Name, company, achievement, stat, etc.
+                   */
+                  text: string;
+                  /**
+                   * e.g. "👤" "🏥" "⭐" "✅" — shown before the text
+                   */
+                  emoji?: string | null;
+                  type?: ('default' | 'person' | 'company' | 'achievement') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'ticker';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -192,6 +1290,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'case-studies';
+        value: string | CaseStudy;
+      } | null)
+    | ({
+        relationTo: 'insights';
+        value: string | Insight;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: string | Service;
+      } | null)
+    | ({
+        relationTo: 'clients';
+        value: string | Client;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -277,6 +1395,420 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "case-studies_select".
+ */
+export interface CaseStudiesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  tag?: T;
+  excerpt?: T;
+  publishedDate?: T;
+  featuredImage?: T;
+  clientBackground?: T;
+  challenge?: T;
+  healtharksRole?: T;
+  impact?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "insights_select".
+ */
+export interface InsightsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  type?: T;
+  publishedDate?: T;
+  featured?: T;
+  featuredImage?: T;
+  excerpt?: T;
+  author?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  externalUrl?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  order?: T;
+  featuredImage?: T;
+  excerpt?: T;
+  content?: T;
+  icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients_select".
+ */
+export interface ClientsSelect<T extends boolean = true> {
+  name?: T;
+  logo?: T;
+  industry?: T;
+  featured?: T;
+  order?: T;
+  website?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        ogImage?: T;
+      };
+  layout?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subtext?: T;
+              subtextAnimation?: T;
+              heroImage?: T;
+              imageAnimation?: T;
+              ctaPrimary?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                  };
+              ctaSecondary?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                  };
+              ctaAnimation?: T;
+              variant?: T;
+              eyebrowLabel?: T;
+              rotatingWords?:
+                | T
+                | {
+                    word?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        content?:
+          | T
+          | {
+              richText?: T;
+              contentAnimation?: T;
+              width?: T;
+              id?: T;
+              blockName?: T;
+            };
+        stats?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    label?: T;
+                    id?: T;
+                  };
+              statsAnimation?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        servicesGrid?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              cardsAnimation?: T;
+              filter?: T;
+              limit?: T;
+              showCTA?: T;
+              id?: T;
+              blockName?: T;
+            };
+        caseStudies?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              cardsAnimation?: T;
+              selectionMode?: T;
+              items?: T;
+              limit?: T;
+              showCTA?: T;
+              id?: T;
+              blockName?: T;
+            };
+        insights?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              cardsAnimation?: T;
+              typeFilter?: T;
+              limit?: T;
+              showCTA?: T;
+              id?: T;
+              blockName?: T;
+            };
+        clients?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              selectionMode?: T;
+              items?: T;
+              showCTA?: T;
+              id?: T;
+              blockName?: T;
+            };
+        ctaBanner?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subtext?: T;
+              subtextAnimation?: T;
+              ctaPrimary?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                  };
+              ctaSecondary?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                  };
+              ctaAnimation?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoColumn?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              headingAnimation?: T;
+              richText?: T;
+              bodyAnimation?: T;
+              cta?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                  };
+              image?: T;
+              imageAnimation?: T;
+              imagePosition?: T;
+              background?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teamGrid?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              membersAnimation?: T;
+              members?:
+                | T
+                | {
+                    name?: T;
+                    title?: T;
+                    bio?: T;
+                    photo?: T;
+                    linkedin?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        accordion?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              itemsAnimation?: T;
+              items?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        timeline?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              itemsAnimation?: T;
+              items?:
+                | T
+                | {
+                    year?: T;
+                    title?: T;
+                    description?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              cardsAnimation?: T;
+              items?:
+                | T
+                | {
+                    quote?: T;
+                    authorName?: T;
+                    authorTitle?: T;
+                    authorCompany?: T;
+                    photo?: T;
+                    id?: T;
+                  };
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        video?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              videoUrl?: T;
+              videoAnimation?: T;
+              posterImage?: T;
+              caption?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactForm?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              submitLabel?: T;
+              successMessage?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        featureScroll?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    image?: T;
+                    id?: T;
+                  };
+              stickyImage?: T;
+              imagePosition?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        metricsBar?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              layout?: T;
+              variant?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    percentage?: T;
+                    description?: T;
+                    color?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        ticker?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              rows?: T;
+              speed?: T;
+              direction?: T;
+              pauseOnHover?: T;
+              separator?: T;
+              variant?: T;
+              items?:
+                | T
+                | {
+                    text?: T;
+                    emoji?: T;
+                    type?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -314,6 +1846,96 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Global settings shared across the entire website.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: string;
+  hero?: {
+    /**
+     * Main visual on the right side of the homepage hero. Recommended: 920×680 px, 16:9 ratio.
+     */
+    image?: (string | null) | Media;
+    headline?: string | null;
+    subtext?: string | null;
+    ctaPrimaryLabel?: string | null;
+    ctaPrimaryUrl?: string | null;
+    ctaSecondaryLabel?: string | null;
+    ctaSecondaryUrl?: string | null;
+  };
+  social?: {
+    linkedin?: string | null;
+    twitter?: string | null;
+    instagram?: string | null;
+    youtube?: string | null;
+    facebook?: string | null;
+  };
+  offices?:
+    | {
+        city: string;
+        address: string;
+        id?: string | null;
+      }[]
+    | null;
+  email?: string | null;
+  seo?: {
+    metaTitle?: string | null;
+    metaDescription?: string | null;
+    /**
+     * Shown when pages are shared on social media. Recommended: 1200×630 px.
+     */
+    ogImage?: (string | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        image?: T;
+        headline?: T;
+        subtext?: T;
+        ctaPrimaryLabel?: T;
+        ctaPrimaryUrl?: T;
+        ctaSecondaryLabel?: T;
+        ctaSecondaryUrl?: T;
+      };
+  social?:
+    | T
+    | {
+        linkedin?: T;
+        twitter?: T;
+        instagram?: T;
+        youtube?: T;
+        facebook?: T;
+      };
+  offices?:
+    | T
+    | {
+        city?: T;
+        address?: T;
+        id?: T;
+      };
+  email?: T;
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        ogImage?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

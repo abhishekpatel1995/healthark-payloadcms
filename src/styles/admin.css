@@ -1,0 +1,380 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Healthark CMS — Admin Panel Theme
+   Overrides Payload 3.x CSS variables and improves visual hierarchy.
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Brand color tokens ───────────────────────────────────────────────────── */
+:root,
+[data-theme='light'] {
+  --color-brand-500: #1B5FAD;
+  --color-brand-600: #144A8A;
+  --color-brand-400: #2B70C0;
+  --color-brand-300: #4A8DD4;
+  --color-brand-200: #93bbea;
+  --color-brand-100: #dbeafe;
+  --color-brand-50:  #eff6ff;
+  --color-brand-25:  #f8fbff;
+  --color-success-500: #00A896;
+  --color-success-600: #007D72;
+}
+
+/* ── Top gradient accent bar on the header ────────────────────────────────── */
+.app-header,
+[class*='app-header'],
+header[class*='header'] {
+  border-bottom: 2px solid transparent !important;
+  background-image: linear-gradient(white, white),
+    linear-gradient(90deg, #1B5FAD 0%, #00A896 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* ── Nav sidebar — clean white with left accent on active ─────────────────── */
+.nav,
+[class*='nav__wrap'] {
+  border-right: 1px solid #E2E8F0 !important;
+}
+
+/* Active nav link — left blue bar */
+[class*='nav__link'][aria-current='page'],
+[class*='nav__link--active'],
+[class*='active-indicator'] {
+  background: rgba(27, 95, 173, 0.07) !important;
+  border-left: 3px solid #1B5FAD !important;
+  border-radius: 0 6px 6px 0 !important;
+  color: #1B5FAD !important;
+}
+
+/* Nav link hover */
+[class*='nav__link']:hover {
+  background: rgba(27, 95, 173, 0.05) !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+
+/* Group headings in the nav */
+[class*='nav__group-label'],
+[class*='group-label'] {
+  text-transform: uppercase !important;
+  font-size: 10px !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 700 !important;
+  color: #94a3b8 !important;
+  padding-top: 16px !important;
+}
+
+/* ── Dashboard section heading ────────────────────────────────────────────── */
+[class*='dashboard'] h2,
+[class*='dashboard'] h3 {
+  letter-spacing: -0.02em;
+}
+
+/* ── Collection list (admin list view) ────────────────────────────────────── */
+[class*='cell'] {
+  font-size: 14px;
+}
+
+/* Table header cells */
+[class*='list-header'],
+th {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+}
+
+/* ── Form view — better visual grouping ───────────────────────────────────── */
+
+/* Field labels — stronger */
+[class*='field-label'],
+label[class*='label'] {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+}
+
+/* Field descriptions — softer */
+[class*='field-description'],
+[class*='description'] {
+  font-size: 11.5px !important;
+  color: #94a3b8 !important;
+  line-height: 1.5 !important;
+}
+
+/* Input fields — cleaner border */
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='url'],
+input[type='password'],
+textarea,
+select {
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  border-color: #CBD5E1 !important;
+  transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='number']:focus,
+input[type='url']:focus,
+input[type='password']:focus,
+textarea:focus,
+select:focus {
+  border-color: #1B5FAD !important;
+  box-shadow: 0 0 0 3px rgba(27, 95, 173, 0.1) !important;
+  outline: none !important;
+}
+
+/* ── Blocks (page builder) ────────────────────────────────────────────────── */
+[class*='block-row'],
+[class*='blocks-field'] [class*='row'] {
+  border-radius: 10px !important;
+  border: 1px solid #E2E8F0 !important;
+  transition: border-color 0.15s !important;
+}
+
+[class*='block-row']:hover,
+[class*='blocks-field'] [class*='row']:hover {
+  border-color: #1B5FAD !important;
+}
+
+/* Block type label — highlight with brand */
+[class*='block-row'] [class*='pill'],
+[class*='block-pill'] {
+  background: rgba(27, 95, 173, 0.08) !important;
+  color: #1B5FAD !important;
+  border: 1px solid rgba(27, 95, 173, 0.2) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* ── Array fields ─────────────────────────────────────────────────────────── */
+[class*='array-field'] [class*='row'],
+[class*='array-row'] {
+  border-radius: 8px !important;
+  border: 1px solid #E2E8F0 !important;
+  margin-bottom: 8px !important;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+
+/* Primary "Save" button */
+button[class*='btn--style-primary'],
+[class*='form-submit'] button {
+  background: #1B5FAD !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  transition: background 0.15s !important;
+}
+
+button[class*='btn--style-primary']:hover,
+[class*='form-submit'] button:hover {
+  background: #144A8A !important;
+}
+
+/* "Create New" button */
+a[class*='btn--style-primary'],
+[class*='collection-list'] [class*='btn'],
+[class*='create-new-btn'] {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* Danger / destructive */
+button[class*='btn--style-secondary'] {
+  border-radius: 8px !important;
+}
+
+/* ── Sidebar (document sidebar panels) ───────────────────────────────────── */
+[class*='document-sidebar'],
+[class*='sidebar__wrap'] {
+  border-left: 1px solid #E2E8F0 !important;
+  padding: 16px !important;
+}
+
+/* Sidebar field labels */
+[class*='document-sidebar'] [class*='field-label'],
+[class*='sidebar__wrap'] label {
+  font-size: 11px !important;
+  color: #94a3b8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  font-weight: 700 !important;
+}
+
+/* ── Thumbnails in upload fields ──────────────────────────────────────────── */
+[class*='file-details'],
+[class*='thumbnail'] {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+/* ── Toast / notifications ────────────────────────────────────────────────── */
+[class*='toast'],
+[class*='notification'] {
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+/* ── Status pills (Published / Draft) ─────────────────────────────────────── */
+[class*='status-light--published'] {
+  background: #00A896 !important;
+}
+
+[class*='status-light--draft'],
+[class*='status-light--unpublished'] {
+  background: #94a3b8 !important;
+}
+
+/* ── Select dropdowns in admin ────────────────────────────────────────────── */
+[class*='react-select__control'] {
+  border-color: #CBD5E1 !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+}
+
+[class*='react-select__control--is-focused'] {
+  border-color: #1B5FAD !important;
+  box-shadow: 0 0 0 3px rgba(27, 95, 173, 0.1) !important;
+}
+
+[class*='react-select__option--is-selected'] {
+  background-color: #1B5FAD !important;
+}
+
+[class*='react-select__option--is-focused'] {
+  background-color: rgba(27, 95, 173, 0.08) !important;
+  color: #1B5FAD !important;
+}
+
+/* ── Rich text editor (Lexical) ───────────────────────────────────────────── */
+[class*='rich-text-lexical'] {
+  border-radius: 8px !important;
+  border-color: #CBD5E1 !important;
+}
+
+[class*='rich-text-lexical']:focus-within {
+  border-color: #1B5FAD !important;
+  box-shadow: 0 0 0 3px rgba(27, 95, 173, 0.1) !important;
+}
+
+/* ── Relationship fields ──────────────────────────────────────────────────── */
+[class*='relationship-field'] [class*='pill'],
+[class*='relationship__list-item'] {
+  border-radius: 6px !important;
+  font-size: 12px !important;
+}
+
+/* ── Login page ───────────────────────────────────────────────────────────── */
+[class*='login'],
+[class*='login__form-wrap'] {
+  background: #F8F9FA;
+}
+
+/* ── List view — enhanced visual hierarchy ────────────────────────────────── */
+
+/* Title cell — primary emphasis */
+[class*='cell--title'] a {
+  font-weight: 600 !important;
+  color: #1E293B !important;
+  font-size: 14.5px !important;
+  transition: color 0.15s !important;
+}
+
+[class*='cell--title'] a:hover {
+  color: #1B5FAD !important;
+  text-decoration: none !important;
+}
+
+/* Slug cell — styled as a URL path badge */
+[class*='cell--slug'] {
+  font-family: 'SF Mono', ui-monospace, 'Cascadia Code', monospace !important;
+  font-size: 12.5px !important;
+}
+
+[class*='cell--slug'] a,
+[class*='cell--slug'] span {
+  display: inline-block !important;
+  background: #F1F5F9 !important;
+  border: 1px solid #E2E8F0 !important;
+  padding: 3px 10px !important;
+  border-radius: 6px !important;
+  color: #475569 !important;
+  font-family: inherit !important;
+  transition: background 0.15s, border-color 0.15s, color 0.15s !important;
+}
+
+[class*='cell--slug'] a:hover {
+  background: #EFF6FF !important;
+  border-color: #93bbea !important;
+  color: #1B5FAD !important;
+  text-decoration: none !important;
+}
+
+/* Updated At / Created At — de-emphasised */
+[class*='cell--updatedAt'],
+[class*='cell--createdAt'] {
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+}
+
+/* Row hover — subtle brand tint */
+[class*='table'] tbody tr:hover {
+  background: rgba(27, 95, 173, 0.028) !important;
+}
+
+/* Table rows — clean bottom border, no gaps */
+[class*='table'] tbody tr {
+  border-bottom: 1px solid #F1F5F9 !important;
+}
+
+/* List header area — "Pages  Create New" */
+[class*='list-header__wrap'],
+[class*='listHeader'] {
+  padding-bottom: 12px !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Collection description text */
+[class*='collection-description'],
+[class*='listDescription'] {
+  color: #64748b !important;
+  font-size: 13px !important;
+  margin-top: 4px !important;
+}
+
+/* Pagination */
+[class*='pagination'] {
+  margin-top: 16px !important;
+  border-top: 1px solid #E2E8F0 !important;
+  padding-top: 12px !important;
+  font-size: 13px !important;
+  color: #64748b !important;
+}
+
+/* ── Scrollbars ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
