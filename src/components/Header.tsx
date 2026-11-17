@@ -8,11 +8,16 @@ const navItems = [
     label: 'About Us',
     href: '/about',
     children: [
-      { label: 'Overview', href: '/about' },
-      { label: 'Leadership', href: '/about/leadership' },
-      { label: 'Life at Healthark', href: '/about/life-at-healthark' },
-      { label: 'Clients', href: '/about/clients' },
+      { label: 'About', href: '/healthark-testing' },
+      { label: 'Contact', href: '/healthark-contact' },
+      { label: 'Blog', href: '/blogs' },
     ],
+    // children: [
+    //   { label: 'Overview', href: '/about' },
+    //   { label: 'Leadership', href: '/about/leadership' },
+    //   { label: 'Life at Healthark', href: '/about/life-at-healthark' },
+    //   { label: 'Clients', href: '/about/clients' },
+    // ],
   },
   {
     label: 'Business Units',
@@ -132,7 +137,8 @@ export function Header() {
           {/* Right: CTA + mobile toggle */}
           <div className="flex items-center gap-3">
             <Link
-              href="/contact"
+              // href="/contact"
+              href="/healthark-contact"
               className="hidden lg:inline-flex items-center px-5 py-2.5 text-sm font-semibold text-white bg-primary hover:bg-primary-dark rounded-lg transition-colors"
             >
               Contact Us

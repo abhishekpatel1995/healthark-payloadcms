@@ -649,6 +649,210 @@ const VideoBlock: Block = {
   ],
 }
 
+// ─── New blocks (inspired by McKinsey / Capgemini home pages) ─────────────────
+
+const hoverEffectOptions = [
+  { label: 'Lift', value: 'lift' },
+  { label: 'Image zoom', value: 'zoom' },
+  { label: 'Lift + image zoom', value: 'lift-zoom' },
+  { label: 'None', value: 'none' },
+]
+
+const sectionBgOptions = [
+  { label: 'White', value: 'white' },
+  { label: 'Light grey', value: 'surface' },
+  { label: 'Dark navy', value: 'dark' },
+]
+
+const BentoBlock: Block = {
+  slug: 'bento',
+  labels: { singular: 'Bento Grid (Featured Cards)', plural: 'Bento Grids' },
+  fields: [
+    { name: 'heading', label: 'Section Heading (optional)', type: 'text' },
+    elemAnim('headingAnimation', 'Heading - Animation'),
+    { name: 'subheading', label: 'Sub-heading (optional)', type: 'textarea' },
+    groupAnim('cardsAnimation', 'Cards - Animation'),
+    {
+      name: 'items',
+      label: 'Cards',
+      type: 'array',
+      minRows: 2,
+      maxRows: 6,
+      admin: { description: 'Add 3 to 5 cards. The first "Large" card takes the most space.' },
+      fields: [
+        { name: 'label', label: 'Small label (e.g. Report, Video)', type: 'text' },
+        { name: 'title', label: 'Title', type: 'text', required: true },
+        { name: 'image', label: 'Background image', type: 'upload', relationTo: 'media' },
+        { name: 'link', label: 'Link URL', type: 'text' },
+        {
+          name: 'size',
+          label: 'Card size',
+          type: 'select',
+          defaultValue: 'small',
+          options: [
+            { label: 'Large (tall)', value: 'large' },
+            { label: 'Wide', value: 'wide' },
+            { label: 'Small', value: 'small' },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'hoverEffect',
+      label: 'Card hover effect',
+      type: 'select',
+      defaultValue: 'lift-zoom',
+      options: hoverEffectOptions,
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'variant',
+      label: 'Background',
+      type: 'select',
+      defaultValue: 'white',
+      options: sectionBgOptions,
+      admin: { position: 'sidebar' },
+    },
+  ],
+}
+
+const CarouselBlock: Block = {
+  slug: 'carousel',
+  labels: { singular: 'Carousel (Stories / Slides)', plural: 'Carousels' },
+  fields: [
+    { name: 'eyebrow', label: 'Eyebrow label (optional)', type: 'text' },
+    { name: 'heading', label: 'Section Heading', type: 'text' },
+    elemAnim('headingAnimation', 'Heading - Animation'),
+    {
+      name: 'slides',
+      label: 'Slides',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        { name: 'image', label: 'Image', type: 'upload', relationTo: 'media' },
+        { name: 'title', label: 'Title', type: 'text', required: true },
+        { name: 'text', label: 'Short text', type: 'textarea' },
+        { name: 'linkLabel', label: 'Link label', type: 'text', defaultValue: 'Read more' },
+        { name: 'linkUrl', label: 'Link URL', type: 'text' },
+      ],
+    },
+    {
+      name: 'autoplay',
+      label: 'Autoplay',
+      type: 'checkbox',
+      defaultValue: true,
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'intervalSeconds',
+      label: 'Seconds per slide',
+      type: 'number',
+      defaultValue: 6,
+      min: 2,
+      max: 20,
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'hoverEffect',
+      label: 'Image hover effect',
+      type: 'select',
+      defaultValue: 'zoom',
+      options: hoverEffectOptions,
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'variant',
+      label: 'Background',
+      type: 'select',
+      defaultValue: 'white',
+      options: sectionBgOptions,
+      admin: { position: 'sidebar' },
+    },
+  ],
+}
+
+const NewsListBlock: Block = {
+  slug: 'newsList',
+  labels: { singular: 'News List (latest items)', plural: 'News Lists' },
+  fields: [
+    { name: 'heading', label: 'Section Heading', type: 'text', defaultValue: 'Latest news' },
+    elemAnim('headingAnimation', 'Heading - Animation'),
+    { name: 'subheading', label: 'Sub-heading (optional)', type: 'textarea' },
+    groupAnim('itemsAnimation', 'List items - Animation'),
+    {
+      name: 'typeFilter',
+      label: 'Filter by Type',
+      type: 'select',
+      defaultValue: 'all',
+      options: [
+        { label: 'All', value: 'all' },
+        { label: 'Blog', value: 'blog' },
+        { label: 'Article', value: 'article' },
+        { label: 'Report', value: 'report' },
+        { label: 'Podcast', value: 'podcast' },
+        { label: 'Event', value: 'event' },
+        { label: 'Press Release', value: 'press-release' },
+      ],
+    },
+    { name: 'limit', label: 'Max items', type: 'number', defaultValue: 4, min: 1, max: 10 },
+    {
+      name: 'showFeatured',
+      label: 'Highlight the first item',
+      type: 'checkbox',
+      defaultValue: true,
+    },
+    { name: 'viewAllLabel', label: '"View all" label', type: 'text', defaultValue: 'See all news' },
+    { name: 'viewAllUrl', label: '"View all" URL', type: 'text', defaultValue: '/insights' },
+    {
+      name: 'variant',
+      label: 'Background',
+      type: 'select',
+      defaultValue: 'surface',
+      options: sectionBgOptions,
+      admin: { position: 'sidebar' },
+    },
+  ],
+}
+
+const IntroVideoBlock: Block = {
+  slug: 'introVideo',
+  labels: { singular: 'Intro Statement + Video', plural: 'Intro Statement + Video' },
+  fields: [
+    { name: 'eyebrow', label: 'Eyebrow label (optional)', type: 'text' },
+    { name: 'heading', label: 'Big statement', type: 'text', required: true },
+    elemAnim('headingAnimation', 'Statement - Animation'),
+    { name: 'text', label: 'Supporting text (optional)', type: 'textarea' },
+    {
+      name: 'videoUrl',
+      label: 'Video URL',
+      type: 'text',
+      required: true,
+      admin: { description: 'YouTube or Vimeo link.' },
+    },
+    elemAnim('videoAnimation', 'Video - Animation'),
+    { name: 'posterImage', label: 'Poster image (optional)', type: 'upload', relationTo: 'media' },
+    {
+      name: 'videoSide',
+      label: 'Video position',
+      type: 'select',
+      defaultValue: 'right',
+      options: [
+        { label: 'Right', value: 'right' },
+        { label: 'Left', value: 'left' },
+      ],
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'variant',
+      label: 'Background',
+      type: 'select',
+      defaultValue: 'white',
+      options: sectionBgOptions,
+      admin: { position: 'sidebar' },
+    },
+  ],
+}
+
 const ContactFormBlock: Block = {
   slug: 'contactForm',
   labels: { singular: 'Contact Form', plural: 'Contact Forms' },
@@ -1003,6 +1207,10 @@ export const Pages: CollectionConfig = {
         FeatureScrollBlock,
         MetricsBarBlock,
         TickerBlock,
+        BentoBlock,
+        CarouselBlock,
+        NewsListBlock,
+        IntroVideoBlock,
       ],
     },
   ],

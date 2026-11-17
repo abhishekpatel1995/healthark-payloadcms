@@ -1254,6 +1254,165 @@ export interface Page {
             blockName?: string | null;
             blockType: 'ticker';
           }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            cardsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            /**
+             * Add 3 to 5 cards. The first "Large" card takes the most space.
+             */
+            items?:
+              | {
+                  label?: string | null;
+                  title: string;
+                  image?: (string | null) | Media;
+                  link?: string | null;
+                  size?: ('large' | 'wide' | 'small') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            hoverEffect?: ('lift' | 'zoom' | 'lift-zoom' | 'none') | null;
+            variant?: ('white' | 'surface' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'bento';
+          }
+        | {
+            eyebrow?: string | null;
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            slides?:
+              | {
+                  image?: (string | null) | Media;
+                  title: string;
+                  text?: string | null;
+                  linkLabel?: string | null;
+                  linkUrl?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            autoplay?: boolean | null;
+            intervalSeconds?: number | null;
+            hoverEffect?: ('lift' | 'zoom' | 'lift-zoom' | 'none') | null;
+            variant?: ('white' | 'surface' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'carousel';
+          }
+        | {
+            heading?: string | null;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            subheading?: string | null;
+            /**
+             * Stagger animation applied to each item in this group.
+             */
+            itemsAnimation?: ('none' | 'fade-up' | 'fade-in' | 'zoom-in' | 'slide-left' | 'slide-right') | null;
+            typeFilter?: ('all' | 'blog' | 'article' | 'report' | 'podcast' | 'event' | 'press-release') | null;
+            limit?: number | null;
+            showFeatured?: boolean | null;
+            viewAllLabel?: string | null;
+            viewAllUrl?: string | null;
+            variant?: ('white' | 'surface' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'newsList';
+          }
+        | {
+            eyebrow?: string | null;
+            heading: string;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            text?: string | null;
+            /**
+             * YouTube or Vimeo link.
+             */
+            videoUrl: string;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            videoAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            posterImage?: (string | null) | Media;
+            videoSide?: ('right' | 'left') | null;
+            variant?: ('white' | 'surface' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'introVideo';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -1800,6 +1959,82 @@ export interface PagesSelect<T extends boolean = true> {
                     type?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        bento?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              cardsAnimation?: T;
+              items?:
+                | T
+                | {
+                    label?: T;
+                    title?: T;
+                    image?: T;
+                    link?: T;
+                    size?: T;
+                    id?: T;
+                  };
+              hoverEffect?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        carousel?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              headingAnimation?: T;
+              slides?:
+                | T
+                | {
+                    image?: T;
+                    title?: T;
+                    text?: T;
+                    linkLabel?: T;
+                    linkUrl?: T;
+                    id?: T;
+                  };
+              autoplay?: T;
+              intervalSeconds?: T;
+              hoverEffect?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        newsList?:
+          | T
+          | {
+              heading?: T;
+              headingAnimation?: T;
+              subheading?: T;
+              itemsAnimation?: T;
+              typeFilter?: T;
+              limit?: T;
+              showFeatured?: T;
+              viewAllLabel?: T;
+              viewAllUrl?: T;
+              variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        introVideo?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              headingAnimation?: T;
+              text?: T;
+              videoUrl?: T;
+              videoAnimation?: T;
+              posterImage?: T;
+              videoSide?: T;
+              variant?: T;
               id?: T;
               blockName?: T;
             };

@@ -10,6 +10,10 @@ import { VideoEmbed } from '@/components/blocks/VideoEmbed'
 import { ContactFormClient } from '@/components/blocks/ContactFormClient'
 import { FeatureScrollClient } from '@/components/blocks/FeatureScrollClient'
 import { MetricsBarClient } from '@/components/blocks/MetricsBarClient'
+import { BentoBlock } from '@/components/blocks/BentoBlock'
+import { CarouselBlock } from '@/components/blocks/CarouselBlock'
+import { NewsListBlock } from '@/components/blocks/NewsListBlock'
+import { IntroVideoBlock } from '@/components/blocks/IntroVideoBlock'
 import { TypewriterSpan } from '@/components/TypewriterSpan'
 import { TickerBlock as TickerBlockComponent } from '@/components/blocks/TickerBlock'
 
@@ -462,7 +466,7 @@ async function CaseStudiesBlock(block: Extract<LayoutBlock, { blockType: 'caseSt
                 <Link key={cs.id} href={`/insights/case-studies/${cs.slug}`} className="card-glow group flex flex-col bg-surface rounded-xl border border-border overflow-hidden hover:-translate-y-1.5 transition-all duration-300 h-full">
                   <div className="relative h-44 flex-shrink-0" style={{ background: CS_GRADIENTS[i % 3] }}>
                     {thumb ? (
-                      <Image {...thumb} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={thumb.src} alt={thumb.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
                     )}
@@ -557,7 +561,7 @@ async function InsightsBlock(block: Extract<LayoutBlock, { blockType: 'insights'
                 >
                   <div className="relative h-40 flex-shrink-0 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C1B2D 0%, #1B5FAD 100%)' }}>
                     {thumb ? (
-                      <Image {...thumb} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={thumb.src} alt={thumb.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : isPodcast ? (
                       <div className="absolute inset-0 flex items-center justify-center gap-[3px] px-8">
                         {WAVE_H.map((h, idx) => (
@@ -1241,6 +1245,10 @@ export async function BlockRenderer({ block }: { block: LayoutBlock }) {
     case 'featureScroll':  return <FeatureScrollBlock  {...block} />
     case 'metricsBar':     return <MetricsBarBlock      {...block} />
     case 'ticker':         return <TickerBlockComponent {...block} />
+    case 'bento':          return <BentoBlock {...block} />
+    case 'carousel':       return <CarouselBlock {...block} />
+    case 'newsList':       return <NewsListBlock {...block} />
+    case 'introVideo':     return <IntroVideoBlock {...block} />
     default:               return null
   }
 }

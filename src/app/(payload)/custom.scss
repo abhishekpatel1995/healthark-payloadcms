@@ -1,0 +1,369 @@
+/* Healthark CMS: admin theme.
+   Payload's own styles live in a CSS layer, so these unlayered rules win without !important. */
+
+:root {
+  --hk-navy: #0c1b2d;
+  --hk-navy-2: #12304f;
+  --hk-blue: #1b5fad;
+  --hk-teal: #00a896;
+  --hk-ink: #0f172a;
+  --hk-muted: #64748b;
+  --hk-line: #e2e8f0;
+  --hk-surface: #f4f7fb;
+  --hk-radius: 12px;
+  --hk-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 14px rgba(15, 23, 42, 0.06);
+  --hk-shadow-lg: 0 10px 30px rgba(27, 95, 173, 0.14);
+}
+
+/* Page background */
+.template-default__wrap {
+  background: var(--hk-surface);
+}
+
+/* ---------- Sidebar ---------- */
+.nav {
+  background: linear-gradient(180deg, var(--hk-navy) 0%, var(--hk-navy-2) 100%);
+  border-right: none;
+  /* Flip Payload's greys so text and icons read on a dark background */
+  --theme-elevation-0: transparent;
+  --theme-elevation-50: rgba(255, 255, 255, 0.08);
+  --theme-elevation-100: rgba(255, 255, 255, 0.12);
+  --theme-elevation-150: rgba(255, 255, 255, 0.16);
+  --theme-elevation-400: rgba(255, 255, 255, 0.55);
+  --theme-elevation-500: rgba(255, 255, 255, 0.65);
+  --theme-elevation-800: #ffffff;
+  --theme-elevation-1000: #ffffff;
+  color: #fff;
+}
+
+.nav__wrap {
+  padding-top: 8px;
+}
+
+.nav-group__toggle {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  padding-top: 18px;
+}
+
+.nav__link {
+  position: relative;
+  margin: 2px 0;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.nav__link:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.nav__link.active,
+.nav__link[aria-current='page'],
+.nav__link:has(.nav__link-indicator) {
+  background: linear-gradient(90deg, rgba(0, 168, 150, 0.28), rgba(27, 95, 173, 0.22));
+  color: #fff;
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--hk-teal);
+}
+
+.nav__link-indicator {
+  display: none;
+}
+
+.nav__log-out,
+.nav__controls a,
+.nav__controls button {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---------- Top header ---------- */
+.app-header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--hk-line);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.02);
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--hk-blue), var(--hk-teal));
+}
+
+/* Header logo: Payload sizes this link at 16px, which clips our 32px icon */
+.step-nav__home {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  margin-right: 4px;
+}
+
+.step-nav__home > span,
+.step-nav__home > span > div {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.app-header__step-nav-wrapper,
+.step-nav {
+  align-items: center;
+  min-height: 34px;
+}
+
+.step-nav__last {
+  font-weight: 600;
+  color: var(--hk-ink);
+}
+
+/* ---------- Collection list header ---------- */
+.list-header__title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--hk-navy), var(--hk-blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.list-header {
+  padding-top: 28px;
+  padding-bottom: 8px;
+}
+
+.list-header__title {
+  line-height: 1.25;
+  padding-bottom: 4px;
+}
+
+.list-header__title-and-actions {
+  align-items: center;
+  gap: 14px;
+}
+
+/* "Create New" button */
+.list-create-new-doc__create-new-button,
+.list-header__title-actions .pill {
+  background: linear-gradient(135deg, var(--hk-blue), #2b70c0);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-weight: 600;
+  box-shadow: var(--hk-shadow-lg);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.list-create-new-doc__create-new-button:hover,
+.list-header__title-actions .pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(27, 95, 173, 0.28);
+}
+
+.list-header__content {
+  color: var(--hk-muted);
+}
+
+/* ---------- Search and filters ---------- */
+.list-controls,
+.search-bar {
+  background: #fff;
+  border: 1px solid var(--hk-line);
+  border-radius: var(--hk-radius);
+  box-shadow: var(--hk-shadow);
+}
+
+.search-filter__input {
+  background: transparent;
+}
+
+.list-controls__toggle-columns,
+.list-controls__toggle-where,
+.list-controls .pill {
+  background: var(--hk-surface);
+  border: 1px solid var(--hk-line);
+  border-radius: 999px;
+  color: var(--hk-ink);
+  font-weight: 600;
+}
+
+/* ---------- Table as rows of cards ---------- */
+.table-wrap,
+.table {
+  background: transparent;
+}
+
+.table table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  width: 100%;
+}
+
+.table thead th {
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--hk-muted);
+  padding: 8px 16px;
+}
+
+.table tbody tr {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.table tbody td {
+  background: #fff;
+  border-top: 1px solid var(--hk-line);
+  border-bottom: 1px solid var(--hk-line);
+  padding: 16px;
+  font-size: 14px;
+  color: var(--hk-ink);
+}
+
+.table tbody td:first-child {
+  border-left: 1px solid var(--hk-line);
+  border-radius: var(--hk-radius) 0 0 var(--hk-radius);
+}
+
+.table tbody td:last-child {
+  border-right: 1px solid var(--hk-line);
+  border-radius: 0 var(--hk-radius) var(--hk-radius) 0;
+}
+
+.table tbody tr:hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 6px 14px rgba(27, 95, 173, 0.12));
+}
+
+.table tbody tr:hover td {
+  background: #f8fbff;
+  border-color: #cfe0f5;
+}
+
+.table tbody td a {
+  color: var(--hk-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.table tbody td a:hover {
+  text-decoration: underline;
+}
+
+/* Pagination footer */
+.per-page__base-button {
+  font-weight: 600;
+}
+
+/* ---------- Dashboard cards ---------- */
+.dashboard__group h2,
+.dashboard__label {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--hk-line);
+  border-radius: 14px;
+  box-shadow: var(--hk-shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--hk-blue), var(--hk-teal));
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #cfe0f5;
+  box-shadow: var(--hk-shadow-lg);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card__title {
+  font-weight: 700;
+  color: var(--hk-ink);
+}
+
+/* ---------- Forms (editing a document) ---------- */
+.field-type label,
+.field-label {
+  font-weight: 600;
+  color: #334155;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+textarea,
+.react-select .rs__control {
+  border-radius: 10px;
+  border-color: #cbd5e1;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:not([type='checkbox']):not([type='radio']):focus,
+textarea:focus {
+  border-color: var(--hk-blue);
+  box-shadow: 0 0 0 3px rgba(27, 95, 173, 0.15);
+  outline: none;
+}
+
+.doc-controls {
+  background: #fff;
+  border-bottom: 1px solid var(--hk-line);
+}
+
+/* Primary buttons */
+.btn--style-primary {
+  background: linear-gradient(135deg, var(--hk-blue), #2b70c0);
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.btn--style-primary:hover {
+  filter: brightness(1.06);
+}
+
+/* Smooth scrolling and nicer scrollbars in the sidebar */
+.nav__scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nav__scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+}
