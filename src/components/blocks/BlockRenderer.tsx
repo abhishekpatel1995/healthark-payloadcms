@@ -14,6 +14,7 @@ import { BentoBlock } from '@/components/blocks/BentoBlock'
 import { CarouselBlock } from '@/components/blocks/CarouselBlock'
 import { NewsListBlock } from '@/components/blocks/NewsListBlock'
 import { IntroVideoBlock } from '@/components/blocks/IntroVideoBlock'
+import { BandWithImageBlock } from '@/components/blocks/BandWithImageBlock'
 import { TypewriterSpan } from '@/components/TypewriterSpan'
 import { TickerBlock as TickerBlockComponent } from '@/components/blocks/TickerBlock'
 
@@ -1249,6 +1250,7 @@ export async function BlockRenderer({ block }: { block: LayoutBlock }) {
     case 'carousel':       return <CarouselBlock {...block} />
     case 'newsList':       return <NewsListBlock {...block} />
     case 'introVideo':     return <IntroVideoBlock {...block} />
+    case 'bandWithImage':  return <BandWithImageBlock {...block} />
     default:               return null
   }
 }

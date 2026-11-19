@@ -853,6 +853,70 @@ const IntroVideoBlock: Block = {
   ],
 }
 
+const BandWithImageBlock: Block = {
+  slug: 'bandWithImage',
+  labels: { singular: 'Band with Image', plural: 'Bands with Image' },
+  fields: [
+    { name: 'eyebrow', label: 'Eyebrow label (optional)', type: 'text' },
+    { name: 'heading', label: 'Heading', type: 'text', required: true },
+    elemAnim('headingAnimation', 'Heading - Animation'),
+    { name: 'text', label: 'Paragraph (optional)', type: 'textarea' },
+    {
+      name: 'button',
+      label: 'Button (optional)',
+      type: 'group',
+      fields: [
+        { name: 'label', type: 'text', defaultValue: 'Contact Us' },
+        { name: 'url', type: 'text', defaultValue: '/contact' },
+        {
+          name: 'style',
+          label: 'Button colour',
+          type: 'select',
+          defaultValue: 'red',
+          options: [
+            { label: 'Red', value: 'red' },
+            { label: 'White', value: 'white' },
+            { label: 'Teal', value: 'teal' },
+            { label: 'Dark navy', value: 'navy' },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'image',
+      label: 'Image',
+      type: 'upload',
+      relationTo: 'media',
+      admin: { description: 'Shown with rounded corners, sticking out above and below the band. Recommended 900x700 px.' },
+    },
+    elemAnim('imageAnimation', 'Image - Animation'),
+    {
+      name: 'imagePosition',
+      label: 'Image position',
+      type: 'select',
+      defaultValue: 'right',
+      options: [
+        { label: 'Right (text left)', value: 'right' },
+        { label: 'Left (text right)', value: 'left' },
+      ],
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'bandColor',
+      label: 'Band colour',
+      type: 'select',
+      defaultValue: 'ocean',
+      options: [
+        { label: 'Ocean blue', value: 'ocean' },
+        { label: 'Brand blue', value: 'brand' },
+        { label: 'Dark navy', value: 'navy' },
+        { label: 'Teal', value: 'teal' },
+      ],
+      admin: { position: 'sidebar' },
+    },
+  ],
+}
+
 const ContactFormBlock: Block = {
   slug: 'contactForm',
   labels: { singular: 'Contact Form', plural: 'Contact Forms' },
@@ -1211,6 +1275,7 @@ export const Pages: CollectionConfig = {
         CarouselBlock,
         NewsListBlock,
         IntroVideoBlock,
+        BandWithImageBlock,
       ],
     },
   ],

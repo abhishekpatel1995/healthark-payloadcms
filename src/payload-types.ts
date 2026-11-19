@@ -1413,6 +1413,57 @@ export interface Page {
             blockName?: string | null;
             blockType: 'introVideo';
           }
+        | {
+            eyebrow?: string | null;
+            heading: string;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            headingAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            text?: string | null;
+            button?: {
+              label?: string | null;
+              url?: string | null;
+              style?: ('red' | 'white' | 'teal' | 'navy') | null;
+            };
+            /**
+             * Shown with rounded corners, sticking out above and below the band. Recommended 900x700 px.
+             */
+            image?: (string | null) | Media;
+            /**
+             * GSAP scroll-triggered animation for this element.
+             */
+            imageAnimation?:
+              | (
+                  | 'none'
+                  | 'fade-in'
+                  | 'fade-up'
+                  | 'fade-down'
+                  | 'slide-left'
+                  | 'slide-right'
+                  | 'zoom-in'
+                  | 'text-reveal'
+                  | 'word-by-word'
+                )
+              | null;
+            imagePosition?: ('right' | 'left') | null;
+            bandColor?: ('ocean' | 'brand' | 'navy' | 'teal') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'bandWithImage';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -2035,6 +2086,27 @@ export interface PagesSelect<T extends boolean = true> {
               posterImage?: T;
               videoSide?: T;
               variant?: T;
+              id?: T;
+              blockName?: T;
+            };
+        bandWithImage?:
+          | T
+          | {
+              eyebrow?: T;
+              heading?: T;
+              headingAnimation?: T;
+              text?: T;
+              button?:
+                | T
+                | {
+                    label?: T;
+                    url?: T;
+                    style?: T;
+                  };
+              image?: T;
+              imageAnimation?: T;
+              imagePosition?: T;
+              bandColor?: T;
               id?: T;
               blockName?: T;
             };
