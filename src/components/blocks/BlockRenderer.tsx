@@ -15,6 +15,7 @@ import { CarouselBlock } from '@/components/blocks/CarouselBlock'
 import { NewsListBlock } from '@/components/blocks/NewsListBlock'
 import { IntroVideoBlock } from '@/components/blocks/IntroVideoBlock'
 import { BandWithImageBlock } from '@/components/blocks/BandWithImageBlock'
+import { AwardsBlock } from '@/components/blocks/AwardsBlock'
 import { TypewriterSpan } from '@/components/TypewriterSpan'
 import { TickerBlock as TickerBlockComponent } from '@/components/blocks/TickerBlock'
 
@@ -1251,6 +1252,7 @@ export async function BlockRenderer({ block }: { block: LayoutBlock }) {
     case 'newsList':       return <NewsListBlock {...block} />
     case 'introVideo':     return <IntroVideoBlock {...block} />
     case 'bandWithImage':  return <BandWithImageBlock {...block} />
+    case 'awards':         return <AwardsBlock {...block} />
     default:               return null
   }
 }

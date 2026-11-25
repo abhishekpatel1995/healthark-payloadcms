@@ -917,6 +917,113 @@ const BandWithImageBlock: Block = {
   ],
 }
 
+const AwardsBlock: Block = {
+  slug: 'awards',
+  labels: { singular: 'Awards & Recognition (sticky scroll)', plural: 'Awards & Recognition' },
+  fields: [
+    {
+      name: 'heading',
+      label: 'Big heading',
+      type: 'text',
+      required: true,
+      defaultValue: 'Global recognition and awards',
+      admin: { description: 'Stays pinned in the middle while the cards scroll past.' },
+    },
+    {
+      name: 'items',
+      label: 'Award cards',
+      type: 'array',
+      minRows: 1,
+      maxRows: 8,
+      labels: { singular: 'Award card', plural: 'Award cards' },
+      fields: [
+        { name: 'title', label: 'Title (shown on the card)', type: 'text', required: true },
+        {
+          name: 'detail',
+          label: 'Detail (shown on hover)',
+          type: 'textarea',
+          admin: { description: 'The title moves to the top and this text appears when the visitor hovers.' },
+        },
+        { name: 'linkLabel', label: 'Link label (optional)', type: 'text', defaultValue: 'See related awards' },
+        { name: 'linkUrl', label: 'Link URL (optional)', type: 'text' },
+        {
+          name: 'position',
+          label: 'Position while scrolling',
+          type: 'select',
+          defaultValue: 'auto',
+          options: [
+            { label: 'Automatic (spread out)', value: 'auto' },
+            { label: 'Left', value: 'left' },
+            { label: 'Center', value: 'center' },
+            { label: 'Right', value: 'right' },
+          ],
+          admin: { description: 'Where this card sits across the screen on desktop. Set one card to Left and the next to Right to alternate them.' },
+        },
+        {
+          name: 'color',
+          label: 'Card colour',
+          type: 'select',
+          defaultValue: 'blue',
+          options: [
+            { label: 'Blue', value: 'blue' },
+            { label: 'Red', value: 'red' },
+            { label: 'Purple', value: 'purple' },
+            { label: 'Teal', value: 'teal' },
+            { label: 'Navy', value: 'navy' },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'respectReducedMotion',
+      label: 'Turn off the scroll animation for visitors who set "reduce motion"',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description:
+          'Off (default): every visitor on a tablet or desktop sees the pinned heading and scrolling cards. On: people with "reduce motion" in Windows or their browser see a plain grid instead.',
+      },
+    },
+    {
+      name: 'cardSize',
+      label: 'Card size',
+      type: 'select',
+      defaultValue: 'medium',
+      options: [
+        { label: 'Small', value: 'small' },
+        { label: 'Medium', value: 'medium' },
+        { label: 'Large', value: 'large' },
+      ],
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'columns',
+      label: 'Cards per row (tablet, mobile and reduced motion)',
+      type: 'select',
+      defaultValue: '3',
+      options: [
+        { label: '1', value: '1' },
+        { label: '2', value: '2' },
+        { label: '3', value: '3' },
+        { label: '4', value: '4' },
+      ],
+      admin: {
+        position: 'sidebar',
+        description: 'Used when the cards are shown as a grid. On desktop with motion, each card scrolls on its own and uses its Position instead.',
+      },
+    },
+    {
+      name: 'variant',
+      label: 'Background',
+      type: 'select',
+      defaultValue: 'dark',
+      options: sectionBgOptions,
+      admin: { position: 'sidebar' },
+    },
+  ],
+}
+
 const ContactFormBlock: Block = {
   slug: 'contactForm',
   labels: { singular: 'Contact Form', plural: 'Contact Forms' },
@@ -1276,6 +1383,7 @@ export const Pages: CollectionConfig = {
         NewsListBlock,
         IntroVideoBlock,
         BandWithImageBlock,
+        AwardsBlock,
       ],
     },
   ],

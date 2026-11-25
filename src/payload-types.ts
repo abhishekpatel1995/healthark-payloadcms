@@ -1464,6 +1464,42 @@ export interface Page {
             blockName?: string | null;
             blockType: 'bandWithImage';
           }
+        | {
+            /**
+             * Stays pinned in the middle while the cards scroll past.
+             */
+            heading: string;
+            items?:
+              | {
+                  title: string;
+                  /**
+                   * The title moves to the top and this text appears when the visitor hovers.
+                   */
+                  detail?: string | null;
+                  linkLabel?: string | null;
+                  linkUrl?: string | null;
+                  /**
+                   * Where this card sits across the screen on desktop. Set one card to Left and the next to Right to alternate them.
+                   */
+                  position?: ('auto' | 'left' | 'center' | 'right') | null;
+                  color?: ('blue' | 'red' | 'purple' | 'teal' | 'navy') | null;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Off (default): every visitor on a tablet or desktop sees the pinned heading and scrolling cards. On: people with "reduce motion" in Windows or their browser see a plain grid instead.
+             */
+            respectReducedMotion?: boolean | null;
+            cardSize?: ('small' | 'medium' | 'large') | null;
+            /**
+             * Used when the cards are shown as a grid. On desktop with motion, each card scrolls on its own and uses its Position instead.
+             */
+            columns?: ('1' | '2' | '3' | '4') | null;
+            variant?: ('white' | 'surface' | 'dark') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'awards';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -2107,6 +2143,28 @@ export interface PagesSelect<T extends boolean = true> {
               imageAnimation?: T;
               imagePosition?: T;
               bandColor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        awards?:
+          | T
+          | {
+              heading?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    detail?: T;
+                    linkLabel?: T;
+                    linkUrl?: T;
+                    position?: T;
+                    color?: T;
+                    id?: T;
+                  };
+              respectReducedMotion?: T;
+              cardSize?: T;
+              columns?: T;
+              variant?: T;
               id?: T;
               blockName?: T;
             };
